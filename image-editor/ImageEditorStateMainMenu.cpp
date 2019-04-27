@@ -1,7 +1,5 @@
 ﻿#include "ImageEditorStateMainMenu.h"
 
-
-
 ImageEditorStateMainMenu::ImageEditorStateMainMenu(ImageEditor* imageEditor)
 {
 	this->imageEditor = imageEditor;
@@ -14,20 +12,21 @@ ImageEditorStateMainMenu::ImageEditorStateMainMenu(ImageEditor* imageEditor)
 
 ImageEditorStateMainMenu::~ImageEditorStateMainMenu()
 {
+
+}
+
+void ImageEditorStateMainMenu::update(const float dt)
+{
+	initGui();
 }
 
 void ImageEditorStateMainMenu::draw(const float dt)
 {
 	this->imageEditor->window.setView(this->view);
 
-	this->imageEditor->window.clear(sf::Color(50, 50, 50));
+	//this->imageEditor->window.draw(*this->shape);
 
 	return;
-}
-
-void ImageEditorStateMainMenu::update(const float dt)
-{
-	//
 }
 
 void ImageEditorStateMainMenu::handleInput()
@@ -39,6 +38,8 @@ void ImageEditorStateMainMenu::handleInput()
 
 	while (this->imageEditor->window.pollEvent(event))
 	{
+		ImGui::SFML::ProcessEvent(event);
+
 		switch (event.type)
 		{
 		case sf::Event::Closed:
@@ -73,6 +74,18 @@ void ImageEditorStateMainMenu::handleInput()
 }
 
 // PRIVATE
+
+void ImageEditorStateMainMenu::initGui()
+{
+	ImGui::SetNextWindowPosCenter();
+	ImGui::Begin(u8"Загрузка Изображения", NULL, 1 << 1 | 1 << 3 | 32);
+	ImGui::InputText(u8"Путь к Изображению", this->imagePath, 255);
+	if (ImGui::Button(u8"Загрузить в Редактор"))
+	{
+		//TO DO ОТКРЫТЬ РЕДАКТОР
+	}
+	ImGui::End();
+}
 
 void ImageEditorStateMainMenu::loadEditor()
 {
