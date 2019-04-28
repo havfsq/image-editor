@@ -1,5 +1,7 @@
 ﻿#include "StateMainMenu.h"
 
+#include "StateEditor.h"
+
 StateMainMenu::StateMainMenu(ImageEditor* imageEditor)
 {
 	this->imageEditor = imageEditor;
@@ -23,8 +25,6 @@ void StateMainMenu::update(const float dt)
 void StateMainMenu::draw(const float dt)
 {
 	this->imageEditor->window.setView(this->view);
-
-	//this->imageEditor->window.draw(*this->shape);
 
 	return;
 }
@@ -82,12 +82,12 @@ void StateMainMenu::initGui()
 	ImGui::InputText(u8"Путь к Изображению", this->imagePath, 255);
 	if (ImGui::Button(u8"Загрузить в Редактор"))
 	{
-		//TO DO ОТКРЫТЬ РЕДАКТОР
+		this->loadEditor();
 	}
 	ImGui::End();
 }
 
 void StateMainMenu::loadEditor()
 {
-	// LOAD EDITOR
+	this->imageEditor->pushState(new StateEditor(this->imageEditor));
 }

@@ -129,12 +129,15 @@
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_widgets.cpp" />
     <ClCompile Include="ImageEditor.cpp" />
+    <ClCompile Include="StateEditor.cpp" />
     <ClCompile Include="StateMainMenu.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\libs\imgui\imgui_internal.h" />
     <ClInclude Include="ImageEditor.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateEditor.h" />
     <ClInclude Include="StateMainMenu.h" />
   </ItemGroup>
   <ItemGroup>
