@@ -1,6 +1,6 @@
-﻿#include "ImageEditorStateMainMenu.h"
+﻿#include "StateMainMenu.h"
 
-ImageEditorStateMainMenu::ImageEditorStateMainMenu(ImageEditor* imageEditor)
+StateMainMenu::StateMainMenu(ImageEditor* imageEditor)
 {
 	this->imageEditor = imageEditor;
 	
@@ -10,17 +10,17 @@ ImageEditorStateMainMenu::ImageEditorStateMainMenu(ImageEditor* imageEditor)
 	this->view.setCenter(pos);
 }
 
-ImageEditorStateMainMenu::~ImageEditorStateMainMenu()
+StateMainMenu::~StateMainMenu()
 {
 
 }
 
-void ImageEditorStateMainMenu::update(const float dt)
+void StateMainMenu::update(const float dt)
 {
 	initGui();
 }
 
-void ImageEditorStateMainMenu::draw(const float dt)
+void StateMainMenu::draw(const float dt)
 {
 	this->imageEditor->window.setView(this->view);
 
@@ -29,7 +29,7 @@ void ImageEditorStateMainMenu::draw(const float dt)
 	return;
 }
 
-void ImageEditorStateMainMenu::handleInput()
+void StateMainMenu::handleInput()
 {
 	sf::Event event;
 
@@ -75,7 +75,7 @@ void ImageEditorStateMainMenu::handleInput()
 
 // PRIVATE
 
-void ImageEditorStateMainMenu::initGui()
+void StateMainMenu::initGui()
 {
 	ImGui::SetNextWindowPosCenter();
 	ImGui::Begin(u8"Загрузка Изображения", NULL, 1 << 1 | 1 << 3 | 32);
@@ -87,7 +87,7 @@ void ImageEditorStateMainMenu::initGui()
 	ImGui::End();
 }
 
-void ImageEditorStateMainMenu::loadEditor()
+void StateMainMenu::loadEditor()
 {
 	// LOAD EDITOR
 }

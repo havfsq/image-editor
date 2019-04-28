@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
-#include "ImageEditorState.h"
+#include "State.h"
 
 ImageEditor::ImageEditor()
 {
@@ -27,7 +27,7 @@ ImageEditor::~ImageEditor()
 		popState();
 }
 
-void ImageEditor::pushState(ImageEditorState * state)
+void ImageEditor::pushState(State * state)
 {
 	this->states.push(state);
 
@@ -42,7 +42,7 @@ void ImageEditor::popState()
 	return;
 }
 
-void ImageEditor::changeState(ImageEditorState* state)
+void ImageEditor::changeState(State* state)
 {
 	if (!this->states.empty())
 		popState();
@@ -51,7 +51,7 @@ void ImageEditor::changeState(ImageEditorState* state)
 	return;
 }
 
-ImageEditorState* ImageEditor::peekState()
+State* ImageEditor::peekState()
 {
 	if (this->states.empty())
 		return nullptr;

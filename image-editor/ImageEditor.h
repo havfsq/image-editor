@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class ImageEditorState;
+class State;
 
 class ImageEditor
 {
@@ -13,16 +13,16 @@ public:
 	ImageEditor();
 	~ImageEditor();
 
-	std::stack<ImageEditorState*> states;
+	std::stack<State*> states;
 
 	sf::RenderWindow window;
 
 	std::map<std::string, sf::Font> fonts;
 
-	void pushState(ImageEditorState* state);
+	void pushState(State* state);
 	void popState();
-	void changeState(ImageEditorState* state);
-	ImageEditorState* peekState();
+	void changeState(State* state);
+	State* peekState();
 
 	void mainLoop();
 

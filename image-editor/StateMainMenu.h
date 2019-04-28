@@ -4,14 +4,14 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
-#include "ImageEditorState.h"
+#include "State.h"
 
-class ImageEditorStateMainMenu
-	: public ImageEditorState
+class StateMainMenu
+	: public State
 {
 public:
-	ImageEditorStateMainMenu(ImageEditor* imageEditor);
-	~ImageEditorStateMainMenu();
+	StateMainMenu(ImageEditor* imageEditor);
+	~StateMainMenu();
 
 	virtual void update(const float dt);
 	virtual void draw(const float dt);

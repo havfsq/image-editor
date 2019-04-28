@@ -5,7 +5,7 @@
 /**
 * Виртуальный класс описывающий состояние программы
 */
-class ImageEditorState
+class State
 {
 public:
 	ImageEditor* imageEditor;
