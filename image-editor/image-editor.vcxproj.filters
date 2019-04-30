@@ -16,6 +16,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{f3aa3749-b65a-432e-a805-b7b1b8b9e3b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gifproc">
+      <UniqueIdentifier>{080751ec-dc30-4bf5-9caa-d68705355dd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +48,12 @@
     <ClCompile Include="StateEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gifproc\gifdec.c">
+      <Filter>gifproc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageEditor.h">
@@ -61,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\libs\imgui\imgui_internal.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gifproc\gifdec.h">
+      <Filter>gifproc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

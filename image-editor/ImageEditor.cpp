@@ -229,7 +229,7 @@ void DarkTheme() {
 void SuperDarkTheme() {
 	ImGuiStyle &st = ImGui::GetStyle();
 	st.FrameBorderSize = 1.0f;
-	st.FramePadding = ImVec2(0.0f, 0.0f);
+	st.FramePadding = ImVec2(4.0f, 0.0f);
 	st.ItemSpacing = ImVec2(8.0f, 2.0f);
 	st.WindowBorderSize = 1.0f;
 	st.TabBorderSize = 1.0f;

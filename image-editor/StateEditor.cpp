@@ -10,6 +10,8 @@ StateEditor::StateEditor(ImageEditor* imageEditor)
 	this->view.setCenter(pos);
 
 	MainGuiWindowSize = ImVec2(1280, 720);
+
+	imageManager = new ImageManager();
 }
 
 
@@ -80,6 +82,12 @@ void StateEditor::handleInput()
 
 // PRIVATE 
 
+void StateEditor::gifTestProc()
+{
+	char fpath[255] = "C:\\Users\\havfsq\\Desktop\\bald potato.gif";
+	//this->gif = gd_open_gif(fpath);
+}
+
 void StateEditor::initGui()
 {
 	if (ImGui::BeginMainMenuBar())
@@ -110,21 +118,25 @@ void StateEditor::initGui()
 			ImGui::NextColumn();
 
 			ImGui::Text("ImGui");
-			ImGui::Button("Apple");
-			static float foo = 1.0f;
-			ImGui::InputFloat("red", &foo, 0.05f, 0, "%.3f");
-			ImGui::Text("An extra line here.");
+			ImGui::Image(this->imageManager->getImageTexture());
 			ImGui::NextColumn();
 
 			ImGui::Text("Sailor");
-			ImGui::Button("Corniflower");
 			static float bar = 1.0f;
 			ImGui::InputFloat("blue", &bar, 0.05f, 0, "%.3f");
+			static int gifdelay = 100;
+			ImGui::InputInt(u8"Длинна Кадра", &gifdelay, 10, 0);
+			if (ImGui::Button(u8"PALY", ImVec2(60, 60)))
+			{
+				//
+			}
+			ImGui::SameLine();
+			if (ImGui::Button(u8"PAUSE", ImVec2(60, 60)))
+			{
+				//
+			}
 			ImGui::NextColumn();
 
-			if (ImGui::CollapsingHeader("Category A")) { ImGui::Text("Blah blah blah"); } ImGui::NextColumn();
-			if (ImGui::CollapsingHeader("Category B")) { ImGui::Text("Blah blah blah"); } ImGui::NextColumn();
-			if (ImGui::CollapsingHeader("Category C")) { ImGui::Text("Blah blah blah"); } ImGui::NextColumn();
 			ImGui::Columns(1);
 		}
 	}
