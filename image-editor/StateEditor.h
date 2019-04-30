@@ -22,12 +22,11 @@ private:
 	sf::View view;
 	ImVec2 MainGuiWindowSize;
 
+	// Работа над выводом изображения:
+	// Класс контроля изображений
 	ImageManager* imageManager;
-
-	// TO DO: ПЕРЕНЕСТИ ЭТО \/ В ИМАДЖЕ МЕНЕДЖЕР!!!
-	gd_GIF *gif;
-	void gifTestProc();
-	// TO DO: ПЕРЕНЕСТИ ЭТО /\ В ИМАДЖЕ МЕНЕДЖЕР!!!
+	float elapsedAfterFrame;
+	bool playAnimation;
 
 	void initGui();
 };

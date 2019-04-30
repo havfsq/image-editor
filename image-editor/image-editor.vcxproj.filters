@@ -51,9 +51,6 @@
     <ClCompile Include="ImageManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gifproc\gifdec.c">
-      <Filter>gifproc</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageEditor.h">
@@ -73,9 +70,6 @@
     </ClInclude>
     <ClInclude Include="ImageManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gifproc\gifdec.h">
-      <Filter>gifproc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

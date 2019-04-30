@@ -76,12 +76,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\libs\SFML-2.5.1-VC17\include;C:\libs\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\libs\SFML-2.5.1-VC17\include;C:\libs\imgui;C:\libs\TIL-VC17\headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\libs\SFML-2.5.1-VC17\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\libs\SFML-2.5.1-VC17\lib;C:\libs\TIL-VC17</AdditionalLibraryDirectories>
+      <AdditionalDependencies>TinyImageLoader_d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +130,6 @@
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="gifproc\gifdec.c" />
     <ClCompile Include="ImageEditor.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="StateEditor.cpp" />
@@ -139,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\libs\imgui\imgui_internal.h" />
-    <ClInclude Include="gifproc\gifdec.h" />
     <ClInclude Include="ImageEditor.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="State.h" />

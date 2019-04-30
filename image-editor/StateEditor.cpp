@@ -11,7 +11,11 @@ StateEditor::StateEditor(ImageEditor* imageEditor)
 
 	MainGuiWindowSize = ImVec2(1280, 720);
 
-	imageManager = new ImageManager();
+	this->imageManager = new ImageManager();
+	this->imageManager->loadAnimationImage("test");
+
+	this->elapsedAfterFrame = 0;
+	this->playAnimation = true;
 }
 
 
@@ -21,6 +25,16 @@ StateEditor::~StateEditor()
 
 void StateEditor::update(const float dt)
 {
+	if (playAnimation)
+	{
+		this->elapsedAfterFrame += dt;
+		if (elapsedAfterFrame > this->imageManager->animationDeley)
+		{
+			this->imageManager->nextFrame();
+			this->elapsedAfterFrame = 0;
+		}
+	}
+
 	initGui();
 }
 
@@ -82,12 +96,6 @@ void StateEditor::handleInput()
 
 // PRIVATE 
 
-void StateEditor::gifTestProc()
-{
-	char fpath[255] = "C:\\Users\\havfsq\\Desktop\\bald potato.gif";
-	//this->gif = gd_open_gif(fpath);
-}
-
 void StateEditor::initGui()
 {
 	if (ImGui::BeginMainMenuBar())
@@ -105,7 +113,7 @@ void StateEditor::initGui()
 		ImGui::EndMainMenuBar();
 	}
 
-	ImGui::SetNextWindowPos(ImVec2(0, 20));
+	ImGui::SetNextWindowPos(ImVec2(0, 17));
 	ImGui::SetNextWindowSize(MainGuiWindowSize);
 	if (ImGui::Begin(u8"ТЕСТ", NULL, 1 | 1 << 1 | 1 << 3 | 32))
 	{
@@ -113,31 +121,33 @@ void StateEditor::initGui()
 		{
 			ImGui::Columns(3, "mixed");
 
+			static float initial_spacing = 250.f;
+			if (initial_spacing) ImGui::SetColumnWidth(0, initial_spacing), initial_spacing = 0;
+
 			ImGui::Text("Hello");
 			ImGui::Button("Banana");
 			ImGui::NextColumn();
 
-			ImGui::Text("ImGui");
-			ImGui::Image(this->imageManager->getImageTexture());
+			ImGui::Text("----GIF----");
+			//ImGui::Image(this->imageManager->getTextureByNumber(this->imageManager->nextFrame()));
+			ImGui::Image(this->imageManager->getTextureByCurFrame());
 			ImGui::NextColumn();
 
 			ImGui::Text("Sailor");
 			static float bar = 1.0f;
 			ImGui::InputFloat("blue", &bar, 0.05f, 0, "%.3f");
-			static int gifdelay = 100;
-			ImGui::InputInt(u8"Длинна Кадра", &gifdelay, 10, 0);
+			ImGui::SliderFloat(u8"Длинна Кадра", &this->imageManager->animationDeley, 0.0f, 0.5f);
+			ImGui::InputFloat(u8"Прошло с пред обновления", &this->elapsedAfterFrame, 10, 0);
 			if (ImGui::Button(u8"PALY", ImVec2(60, 60)))
 			{
-				//
+				this->playAnimation = true;
 			}
 			ImGui::SameLine();
 			if (ImGui::Button(u8"PAUSE", ImVec2(60, 60)))
 			{
-				//
+				this->playAnimation = false;
 			}
 			ImGui::NextColumn();
-
-			ImGui::Columns(1);
 		}
 	}
 	ImGui::End();
