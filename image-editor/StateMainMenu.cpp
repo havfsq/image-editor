@@ -77,6 +77,7 @@ void StateMainMenu::handleInput()
 
 void StateMainMenu::initGui()
 {
+	ImGui::SetNextWindowSize(ImVec2(500, 200));
 	ImGui::SetNextWindowPosCenter();
 	ImGui::Begin(u8"Загрузка Изображения", NULL, 1 << 1 | 1 << 3 | 32);
 	ImGui::InputText(u8"Путь к Изображению", this->imagePath, 255);

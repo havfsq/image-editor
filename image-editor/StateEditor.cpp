@@ -9,7 +9,7 @@ StateEditor::StateEditor(ImageEditor* imageEditor)
 	pos *= 0.5f;
 	this->view.setCenter(pos);
 
-	MainGuiWindowSize = ImVec2(1280, 720);
+	MainGuiWindowSize = ImVec2(1282, 720);
 
 	this->imageManager = new ImageManager();
 	this->imageManager->loadAnimationImage("test");
@@ -65,7 +65,7 @@ void StateEditor::handleInput()
 		}
 		case sf::Event::Resized:
 		{
-			MainGuiWindowSize = ImVec2(float(event.size.width), float(event.size.height));
+			MainGuiWindowSize = ImVec2(float(event.size.width+2), float(event.size.height));
 			break;
 		}
 		case sf::Event::MouseMoved:
@@ -113,7 +113,7 @@ void StateEditor::initGui()
 		ImGui::EndMainMenuBar();
 	}
 
-	ImGui::SetNextWindowPos(ImVec2(0, 17));
+	ImGui::SetNextWindowPos(ImVec2(-1, 17));
 	ImGui::SetNextWindowSize(MainGuiWindowSize);
 	if (ImGui::Begin(u8"ТЕСТ", NULL, 1 | 1 << 1 | 1 << 3 | 32))
 	{
@@ -136,14 +136,14 @@ void StateEditor::initGui()
 			ImGui::Text("Sailor");
 			static float bar = 1.0f;
 			ImGui::InputFloat("blue", &bar, 0.05f, 0, "%.3f");
-			ImGui::SliderFloat(u8"Длинна Кадра", &this->imageManager->animationDeley, 0.0f, 0.5f);
+			ImGui::SliderFloat(u8"Длина Кадра", &this->imageManager->animationDeley, 0.0f, 0.5f);
 			ImGui::InputFloat(u8"Прошло с пред обновления", &this->elapsedAfterFrame, 10, 0);
-			if (ImGui::Button(u8"PALY", ImVec2(60, 60)))
+			if (ImGui::Button(u8"PLAY", ImVec2(46, 46)))
 			{
 				this->playAnimation = true;
 			}
 			ImGui::SameLine();
-			if (ImGui::Button(u8"PAUSE", ImVec2(60, 60)))
+			if (ImGui::Button(u8"||###Pause", ImVec2(46, 46)))
 			{
 				this->playAnimation = false;
 			}
