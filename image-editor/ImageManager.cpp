@@ -76,6 +76,19 @@ float ImageManager::nextFrame()
 	return this->currentFrame;
 }
 
+float ImageManager::nextFrame(UINT32 number)
+{
+	// Если введено корректный номер
+	if (number < this->numberOfFrames && number >= 0)
+	{
+		// Изменяем текущий фрейм, на фрейм по номеру
+		this->currentFrame = number;
+		return this->currentFrame;
+	}
+	// Иначе ничего не меняем
+	return this->currentFrame;
+}
+
 sf::Texture & ImageManager::getTextureByNumber(int number)
 {
 	// Если номер "Корректный", возвращаем нужную текстуру

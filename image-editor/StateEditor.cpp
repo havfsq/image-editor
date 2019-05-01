@@ -9,7 +9,10 @@ StateEditor::StateEditor(ImageEditor* imageEditor)
 	pos *= 0.5f;
 	this->view.setCenter(pos);
 
-	MainGuiWindowSize = ImVec2(1282, 720);
+	// Установка размеров окна редактора
+	MainGuiWindowSize = ImVec2(
+		this->imageEditor->window.getSize().x+2, 
+		this->imageEditor->window.getSize().y);
 
 	this->imageManager = new ImageManager();
 	this->imageManager->loadAnimationImage("test");
@@ -121,7 +124,11 @@ void StateEditor::initGui()
 		{
 			ImGui::Columns(3, "mixed");
 
-			static float initial_spacing = 250.f;
+			// Размер кнопок
+			ImVec2 button_sz(46, 46);
+
+			// Ширина первой колонки таблицы
+			static float initial_spacing = 250.f; 
 			if (initial_spacing) ImGui::SetColumnWidth(0, initial_spacing), initial_spacing = 0;
 
 			ImGui::Text("Hello");
@@ -138,15 +145,47 @@ void StateEditor::initGui()
 			ImGui::InputFloat("blue", &bar, 0.05f, 0, "%.3f");
 			ImGui::SliderFloat(u8"Длина Кадра", &this->imageManager->animationDeley, 0.0f, 0.5f);
 			ImGui::InputFloat(u8"Прошло с пред обновления", &this->elapsedAfterFrame, 10, 0);
-			if (ImGui::Button(u8"PLAY", ImVec2(46, 46)))
+			static int test = 0;
+			ImGui::InputInt(u8"test", &test, 10, 0);
+			if (ImGui::Button(u8"PLAY", button_sz))
 			{
 				this->playAnimation = true;
 			}
 			ImGui::SameLine();
-			if (ImGui::Button(u8"||###Pause", ImVec2(46, 46)))
+			if (ImGui::Button(u8"||###Pause", button_sz))
 			{
 				this->playAnimation = false;
 			}
+
+			// Выводим список Кадров, с возможностью их Выбора
+			ImGui::Text(u8"Кадры:");
+			ImGuiStyle& style = ImGui::GetStyle();
+			int buttons_count = this->imageManager->numberOfFrames;
+			float window_visible_x2 = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
+			for (int n = 0; n < buttons_count; n++)
+			{
+				ImGui::PushID(n);
+				// Рамка вокург кнопки с текущим кадром
+				bool isBordered = false;
+				if (n == this->imageManager->nextFrame(-1))
+				{
+					ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 5.f);
+					isBordered = true;
+				}
+				if (ImGui::Button("Box", button_sz))
+				{
+					//test = n;
+					this->imageManager->nextFrame(n);
+				}
+				if (isBordered) ImGui::PopStyleVar();
+				float last_button_x2 = ImGui::GetItemRectMax().x;
+				// Перенос Кнопок на новую сроку, если "не вмещается"
+				float next_button_x2 = last_button_x2 + style.ItemSpacing.x + button_sz.x;
+				if (n + 1 < buttons_count && next_button_x2 < window_visible_x2)
+					ImGui::SameLine();
+				ImGui::PopID();
+			}
+
 			ImGui::NextColumn();
 		}
 	}

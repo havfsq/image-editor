@@ -26,8 +26,10 @@ public:
 	// Задержка перед Обновлением Анимации
 	float animationDeley; 
 	
-	// Обновление номера Текущего фрейма
+	// Обновление номера Текущего фрейма 
 	float nextFrame();
+	// Обновление номера Текущего фрейма по номеру
+	float nextFrame(UINT32 number);
 
 	// Возвращает текстуру соответсвующую введенному номеру
 	sf::Texture& getTextureByNumber(int number);

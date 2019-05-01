@@ -12,7 +12,7 @@
 ImageEditor::ImageEditor()
 {
 	this->window.create(sf::VideoMode(1280, 720), L"Редактор изображений");
-	//this->window.setFramerateLimit(60);
+	this->window.setFramerateLimit(60);
 	this->window.setVerticalSyncEnabled(true);
 
 	// ImGui
