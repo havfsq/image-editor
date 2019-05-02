@@ -16,8 +16,8 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{f3aa3749-b65a-432e-a805-b7b1b8b9e3b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gifproc">
-      <UniqueIdentifier>{080751ec-dc30-4bf5-9caa-d68705355dd4}</UniqueIdentifier>
+    <Filter Include="filedialog">
+      <UniqueIdentifier>{8dc78d9d-f3f4-4102-93a5-29c77a2a495e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +51,9 @@
     <ClCompile Include="ImageManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="filedialog\FileDialog.cpp">
+      <Filter>filedialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageEditor.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="ImageManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="filedialog\FileDialog.h">
+      <Filter>filedialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <string>
+
 #include <SFML/Graphics.hpp>
 #include "imgui.h"
 #include "imgui-SFML.h"
@@ -28,6 +30,9 @@ private:
 	float elapsedAfterFrame;
 	bool playAnimation;
 
+	// Открыть/Зарктыть Файловый браузер
+	bool window_fileIO_visible = false;
+	// Определение Интерфейса пользователя
 	void initGui();
 };
 

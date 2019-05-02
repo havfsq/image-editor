@@ -1,5 +1,8 @@
 ﻿#include "StateEditor.h"
 
+// Файловый браузер
+#include "filedialog/FileDialog.h"
+
 StateEditor::StateEditor(ImageEditor* imageEditor)
 {
 	this->imageEditor = imageEditor;
@@ -105,12 +108,14 @@ void StateEditor::initGui()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			//ShowExampleMenuFile();
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Edit"))
+		if (ImGui::BeginMenu(u8"Экспорт"))
 		{
-			//ShowExampleMenuFile();
+			if (ImGui::MenuItem(u8"Открыть Картинку"))
+			{
+				this->window_fileIO_visible = true;
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
@@ -190,5 +195,22 @@ void StateEditor::initGui()
 		}
 	}
 	ImGui::End();
+
+	// ТЕСТ
+	static std::vector<std::string> window_recent_files;
+	// Файловый менеджер
+	if (this->window_fileIO_visible)
+	{
+		std::string open_file;
+		if (fileIOWindow(open_file, window_recent_files, "Open", { "*.usr", "*.*" }, true))
+		{
+			this->window_fileIO_visible = false;
+			if (!open_file.empty())
+			{
+				window_recent_files.push_back(open_file);
+				//readStuffFromFile(open_file);
+			}
+		}
+	}
 	
 }

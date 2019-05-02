@@ -78,6 +78,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\libs\SFML-2.5.1-VC17\include;C:\libs\imgui;C:\libs\TIL-VC17\headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>
+      </LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\libs\SFML-2.5.1-VC17\lib;C:\libs\TIL-VC17</AdditionalLibraryDirectories>
@@ -130,6 +132,7 @@
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="filedialog\FileDialog.cpp" />
     <ClCompile Include="ImageEditor.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="StateEditor.cpp" />
@@ -138,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\libs\imgui\imgui_internal.h" />
+    <ClInclude Include="filedialog\FileDialog.h" />
     <ClInclude Include="ImageEditor.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="State.h" />
