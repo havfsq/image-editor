@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\libs\imgui\imgui_internal.h" />
     <ClInclude Include="filedialog\FileDialog.h" />
+    <ClInclude Include="gifproc\gif.h" />
     <ClInclude Include="ImageEditor.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="State.h" />

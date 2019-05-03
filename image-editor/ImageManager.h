@@ -14,8 +14,10 @@ public:
 	~ImageManager();
 
 	// * Загрузка Картинки с Анимацией (GIF/APNG/...)
-	// * 0 - Все Ок, -1 - Ошибка загрузки
-	int loadAnimationImage(const char* filePath);
+	// * true - Все Ок, false - Ошибка загрузки
+	bool loadAnimationImage(const char* filePath);
+
+	bool saveAnitaionToFile(const char* filePath, int delay);
 
 	// ПЕРЕНЕСТИ
 	// Количество фреймов (картинок) в Полученном Изображении
@@ -39,15 +41,13 @@ public:
 	void swapTextures(int texN1, int texN2);
 
 private:
-	// Картинка полсе приминения фильтров (Результат)
-	sf::Image imageResult;
-	// Картинка до приминения фильтров (Оригинальная)
-	sf::Image imageSource;
-
 	// Массив картинок из файла
 	std::vector <sf::Image*> images;
 	// Массив текстур из массива картинок
 	std::vector <sf::Texture*> textures;
+
+	// Освобожнеие памяти массива картинок
+	bool freeImages();
 
 	// Номер текущего фрейма для вывода на экран
 	float currentFrame;

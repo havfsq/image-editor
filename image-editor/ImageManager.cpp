@@ -1,4 +1,5 @@
 ﻿#include "ImageManager.h"
+#include "gifproc/gif.h"
 
 ImageManager::ImageManager()
 {
@@ -11,7 +12,7 @@ ImageManager::~ImageManager()
 }
 
 // Загрузка Картинки с Анимацией (GIF/APNG/...)
-int ImageManager::loadAnimationImage(const char* filePath)
+bool ImageManager::loadAnimationImage(const char * filePath)
 {
 	til::TIL_Init();
 
@@ -31,7 +32,7 @@ int ImageManager::loadAnimationImage(const char* filePath)
 	UINT32 height = gif->GetPitchY(1);
 
 	if (this->numberOfFrames == 0)
-		return -1;
+		return false;
 
 	// Загрузка фреймов из изображения в массив фреймов
 	for (UINT32 i = 0; i < numberOfFrames; i++)
@@ -49,9 +50,45 @@ int ImageManager::loadAnimationImage(const char* filePath)
 
 	til::TIL_ShutDown();
 	
-	return 0;
+	// Освобожнеие памяти массива картинок
+	this->freeImages();
+
+	return true;
 }
 
+bool ImageManager::saveAnitaionToFile(const char * filePath, int delay)
+{
+	if (delay < 6)
+		return false;
+
+	int width = this->textures[0]->getSize().x;
+	int height = this->textures[0]->getSize().y;
+
+	// Объявление Обработчика Для созданиния Анимации
+	GifWriter g;
+	GifBegin(&g, filePath, width, height, delay);
+
+	// Заполняем массив изображений "из" массива текстур
+	for (int i = 0; i < this->textures.size(); i++)
+	{
+		//this->images.push_back(new sf::Image(this->textures[i]->copyToImage()));
+
+		// Временное хранилище для изображения текущего фрейма
+		sf::Image image = this->textures[i]->copyToImage();
+		// Указатель на массив пикселей изображения
+		uint8_t* imgPtr = (uint8_t*)image.getPixelsPtr();
+
+		GifWriteFrame(&g, imgPtr, width, height, delay);
+	}
+
+	// Освобожнеие памяти Обработчика Для созданиния Анимации
+	GifEnd(&g);
+
+	// Освобожнеие памяти массива картинок
+	this->freeImages();
+
+	return true;
+}
 
 float ImageManager::nextFrame()
 {
@@ -99,4 +136,18 @@ sf::Texture & ImageManager::getTextureByCurFrame()
 void ImageManager::swapTextures(int texN1, int texN2)
 {
 	std::swap(this->textures[texN1], this->textures[texN2]);
+}
+
+bool ImageManager::freeImages()
+{
+	if (this->images.size() > 0)
+	{
+		for (int i = 0; i < this->images.size(); i++)
+		{
+			delete this->images[i];
+		}
+		this->images.clear();
+	}
+
+	return true;
 }

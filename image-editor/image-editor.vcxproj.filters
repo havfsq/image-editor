@@ -19,6 +19,9 @@
     <Filter Include="filedialog">
       <UniqueIdentifier>{8dc78d9d-f3f4-4102-93a5-29c77a2a495e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gifproc">
+      <UniqueIdentifier>{1a7100f5-6f82-45f3-9576-5f231cd2ad70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="filedialog\FileDialog.h">
       <Filter>filedialog</Filter>
+    </ClInclude>
+    <ClInclude Include="gifproc\gif.h">
+      <Filter>gifproc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

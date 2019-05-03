@@ -111,9 +111,17 @@ void StateEditor::initGui()
 		{
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu(u8"Экспорт"))
+		if (ImGui::BeginMenu(u8"Импорт"))
 		{
 			if (ImGui::MenuItem(u8"Открыть Картинку"))
+			{
+				this->window_fileIO_visible = true;
+			}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu(u8"Экспорт"))
+		{
+			if (ImGui::MenuItem(u8"Сохранить gif"))
 			{
 				this->window_fileIO_visible = true;
 			}
@@ -224,7 +232,10 @@ void StateEditor::initGui()
 
 		ImGui::TextColored(ImVec4(0.8f, 1.0f, 0.4f, 1.0f), u8"инф:");
 		ImGui::Text(u8"Прошло с пред обновления = %f", this->elapsedAfterFrame);
-		ImGui::ImageButton(this->imageManager->getTextureByCurFrame(), ImVec2(100, 100));
+		if (ImGui::ImageButton(this->imageManager->getTextureByCurFrame(), ImVec2(100, 100)))
+		{
+			this->imageManager->saveAnitaionToFile("bwgif.gif", 100);
+		}
 	}
 	ImGui::End();
 
