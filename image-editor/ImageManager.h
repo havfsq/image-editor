@@ -17,9 +17,6 @@ public:
 	// * 0 - Все Ок, -1 - Ошибка загрузки
 	int loadAnimationImage(const char* filePath);
 
-	sf::Image& getImage();
-	sf::Texture& getImageTexture();
-
 	// ПЕРЕНЕСТИ
 	// Количество фреймов (картинок) в Полученном Изображении
 	UINT32 numberOfFrames;
@@ -37,6 +34,9 @@ public:
 	// nextFrame() - Чтобы продвинуть очередь вперед
 	// prevFrame() - Чтобы подвинуть очередь назад
 	sf::Texture& getTextureByCurFrame();
+
+	// Своп текустур texN1 texN2 в Массиве текстур
+	void swapTextures(int texN1, int texN2);
 
 private:
 	// Картинка полсе приминения фильтров (Результат)

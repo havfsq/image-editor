@@ -1,5 +1,6 @@
 ﻿#include "StateEditor.h"
 
+
 // Файловый браузер
 #include "filedialog/FileDialog.h"
 
@@ -133,8 +134,10 @@ void StateEditor::initGui()
 			ImVec2 button_sz(46, 46);
 
 			// Ширина первой колонки таблицы
-			static float initial_spacing = 250.f; 
-			if (initial_spacing) ImGui::SetColumnWidth(0, initial_spacing), initial_spacing = 0;
+			static float initial_spacingx1 = 260.f; 
+			if (initial_spacingx1) ImGui::SetColumnWidth(0, initial_spacingx1), initial_spacingx1 = 0;
+			static float initial_spacingx2 = ImGui::GetWindowHeight();
+			if (initial_spacingx2) ImGui::SetColumnWidth(1, initial_spacingx2), initial_spacingx2 = 0;
 
 			ImGui::Text("Hello");
 			ImGui::Button("Banana");
@@ -149,9 +152,8 @@ void StateEditor::initGui()
 			static float bar = 1.0f;
 			ImGui::InputFloat("blue", &bar, 0.05f, 0, "%.3f");
 			ImGui::SliderFloat(u8"Длина Кадра", &this->imageManager->animationDeley, 0.0f, 0.5f);
-			ImGui::InputFloat(u8"Прошло с пред обновления", &this->elapsedAfterFrame, 10, 0);
-			static int test = 0;
-			ImGui::InputInt(u8"test", &test, 10, 0);
+			
+			// Кропки Запуска/Остановки Анимации
 			if (ImGui::Button(u8"PLAY", button_sz))
 			{
 				this->playAnimation = true;
@@ -167,6 +169,8 @@ void StateEditor::initGui()
 			ImGuiStyle& style = ImGui::GetStyle();
 			int buttons_count = this->imageManager->numberOfFrames;
 			float window_visible_x2 = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 1.f));
+			window_visible_x2 = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 			for (int n = 0; n < buttons_count; n++)
 			{
 				ImGui::PushID(n);
@@ -177,12 +181,34 @@ void StateEditor::initGui()
 					ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 5.f);
 					isBordered = true;
 				}
-				if (ImGui::Button("Box", button_sz))
+				if (ImGui::ImageButton(this->imageManager->getTextureByNumber(n),
+					button_sz,
+					4,
+					sf::Color::Transparent,
+					sf::Color::White))
 				{
-					//test = n;
 					this->imageManager->nextFrame(n);
 				}
 				if (isBordered) ImGui::PopStyleVar();
+				// Our buttons are both drag sources and drag targets here!
+				if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+				{
+					// Контейнер для информации о перемещаемой кнопке
+					ImGui::SetDragDropPayload("DND_DEMO_CELL", &n, sizeof(int));        
+					ImGui::Image(this->imageManager->getTextureByNumber(n), button_sz);//ImGui::Text(u8"Переместить %s", names[n]);
+					ImGui::EndDragDropSource();
+				}
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DND_DEMO_CELL"))
+					{
+						IM_ASSERT(payload->DataSize == sizeof(int));
+						int payload_n = *(const int*)payload->Data;
+						// Свапаем кнопка
+						this->imageManager->swapTextures(n, payload_n);
+					}
+					ImGui::EndDragDropTarget();
+				}
 				float last_button_x2 = ImGui::GetItemRectMax().x;
 				// Перенос Кнопок на новую сроку, если "не вмещается"
 				float next_button_x2 = last_button_x2 + style.ItemSpacing.x + button_sz.x;
@@ -190,9 +216,15 @@ void StateEditor::initGui()
 					ImGui::SameLine();
 				ImGui::PopID();
 			}
+			ImGui::PopStyleColor(); // Обновляем стиль кнопок
+
 
 			ImGui::NextColumn();
 		}
+
+		ImGui::TextColored(ImVec4(0.8f, 1.0f, 0.4f, 1.0f), u8"инф:");
+		ImGui::Text(u8"Прошло с пред обновления = %f", this->elapsedAfterFrame);
+		ImGui::ImageButton(this->imageManager->getTextureByCurFrame(), ImVec2(100, 100));
 	}
 	ImGui::End();
 

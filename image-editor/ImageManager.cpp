@@ -3,9 +3,6 @@
 ImageManager::ImageManager()
 {
 	//TO DO МЕХАНИЗМ ЗАРУГЗКИ КАРТИНКИ Из МЕНЮ...
-	//this->imageSource.loadFromFile("C:\\Users\\havfsq\\Desktop\\test.jpg");
-	//this->imageResult = this->imageSource;
-	//this->imageTexture.loadFromImage(imageResult);
 	this->currentFrame = 0;
 }
 
@@ -55,15 +52,6 @@ int ImageManager::loadAnimationImage(const char* filePath)
 	return 0;
 }
 
-sf::Image & ImageManager::getImage()
-{
-	return this->imageResult;
-}
-
-sf::Texture & ImageManager::getImageTexture()
-{
-	return this->imageTexture;
-}
 
 float ImageManager::nextFrame()
 {
@@ -106,4 +94,9 @@ sf::Texture & ImageManager::getTextureByCurFrame()
 {
 	// Добавить проверку на провильность номера, есил понадобится
 	return *this->textures[this->currentFrame];
+}
+
+void ImageManager::swapTextures(int texN1, int texN2)
+{
+	std::swap(this->textures[texN1], this->textures[texN2]);
 }
