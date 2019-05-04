@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/Graphics.hpp>
 #include "imgui.h"
@@ -20,6 +20,9 @@ public:
 private:
 	sf::View view;
 
+	// Путь из файлового менеджера
+	std::string browserPath;
+	// Путь к картинке
 	char imagePath[255] = " ";
 
 	void initGui();

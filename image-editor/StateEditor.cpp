@@ -1,12 +1,14 @@
 ﻿#include "StateEditor.h"
-
-
 // Файловый браузер
 #include "filedialog/FileDialog.h"
+#include "filebrowser/filebrowser.h"
 
-StateEditor::StateEditor(ImageEditor* imageEditor)
+StateEditor::StateEditor(ImageEditor* imageEditor, const char* imageFilePath)
 {
 	this->imageEditor = imageEditor;
+
+	//this->imageFilePath = "C:\\Users\\havfsq\\Desktop\\image-editor\\Debug\\media\\af2.gif";
+	this->imageFilePath = imageFilePath;
 
 	sf::Vector2f pos = sf::Vector2f(this->imageEditor->window.getSize());
 	this->view.setSize(pos);
@@ -19,7 +21,7 @@ StateEditor::StateEditor(ImageEditor* imageEditor)
 		this->imageEditor->window.getSize().y);
 
 	this->imageManager = new ImageManager();
-	this->imageManager->loadAnimationImage("test");
+	this->imageManager->loadAnimationImage(this->imageFilePath.c_str());
 
 	this->elapsedAfterFrame = 0;
 	this->playAnimation = true;
@@ -165,11 +167,19 @@ void StateEditor::initGui()
 			if (ImGui::Button(u8"PLAY", button_sz))
 			{
 				this->playAnimation = true;
-			}
-			ImGui::SameLine();
+			}ImGui::SameLine();
 			if (ImGui::Button(u8"||###Pause", button_sz))
 			{
 				this->playAnimation = false;
+			}
+			// Кнопки Удилание/Добавления Текстуры
+			if (ImGui::Button(u8"X", button_sz))
+			{
+				this->imageManager->eraseTexture(this->imageManager->nextFrame(-1));
+			}ImGui::SameLine();
+			if (ImGui::Button(u8"+", button_sz))
+			{
+				this->imageManager->eraseTexture(this->imageManager->nextFrame(-1));
 			}
 
 			// Выводим список Кадров, с возможностью их Выбора
@@ -197,13 +207,15 @@ void StateEditor::initGui()
 				{
 					this->imageManager->nextFrame(n);
 				}
+
 				if (isBordered) ImGui::PopStyleVar();
 				// Our buttons are both drag sources and drag targets here!
 				if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
 				{
 					// Контейнер для информации о перемещаемой кнопке
 					ImGui::SetDragDropPayload("DND_DEMO_CELL", &n, sizeof(int));        
-					ImGui::Image(this->imageManager->getTextureByNumber(n), button_sz);//ImGui::Text(u8"Переместить %s", names[n]);
+					ImGui::Image(this->imageManager->getTextureByNumber(n), button_sz);
+
 					ImGui::EndDragDropSource();
 				}
 				if (ImGui::BeginDragDropTarget())
@@ -239,21 +251,12 @@ void StateEditor::initGui()
 	}
 	ImGui::End();
 
-	// ТЕСТ
-	static std::vector<std::string> window_recent_files;
 	// Файловый менеджер
-	if (this->window_fileIO_visible)
+	static imgui_ext::file_browser_modal fileBrowser(u8"Загрузка изображения");
+	if (fileBrowser.render(this->window_fileIO_visible, browserPath))
 	{
-		std::string open_file;
-		if (fileIOWindow(open_file, window_recent_files, "Open", { "*.usr", "*.*" }, true))
-		{
-			this->window_fileIO_visible = false;
-			if (!open_file.empty())
-			{
-				window_recent_files.push_back(open_file);
-				//readStuffFromFile(open_file);
-			}
-		}
+		imageFilePath = browserPath;
+		this->imageManager->loadAnimationImage(this->imageFilePath.c_str());
+		//this->imageManager->loadAnimationImage("C:\\Users\\havfsq\\Desktop\\image-editor\\Debug\\media\\af2.gif");
 	}
-	
 }

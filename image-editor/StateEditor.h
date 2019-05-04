@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <string>
+#include <string>
 
 #include <SFML/Graphics.hpp>
 #include "imgui.h"
@@ -13,7 +14,7 @@ class StateEditor
 	: public State
 {
 public:
-	StateEditor(ImageEditor* imageEditor);
+	StateEditor(ImageEditor* imageEditor, const char* imageFilePath);
 	~StateEditor();
 
 	virtual void update(const float dt);
@@ -23,6 +24,11 @@ public:
 private:
 	sf::View view;
 	ImVec2 MainGuiWindowSize;
+
+	// Пусть к изображению
+	std::string imageFilePath;
+	// Путь из файлового менеджера
+	std::string browserPath;
 
 	// Работа над выводом изображения:
 	// Класс контроля изображений

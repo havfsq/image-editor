@@ -16,10 +16,12 @@ bool ImageManager::loadAnimationImage(const char * filePath)
 {
 	til::TIL_Init();
 
-	// TO DO: ДОБАВИТЬ ЗАГРУЗКУ ИЗ ВВЕДЕННОГО ПУТИ	!!№!"№!"№!"№
+	//til::ImageGIF* gif = (til::ImageGIF*)til::TIL_Load(
+		//"C:\\Users\\havfsq\\Desktop\\image-editor\\Debug\\media\\af2.gif", 
+		//TIL_FILE_ABSOLUTEPATH | TIL_DEPTH_A8B8G8R8);
 	til::ImageGIF* gif = (til::ImageGIF*)til::TIL_Load(
-		"media\\af.gif", 
-		TIL_FILE_ADDWORKINGDIR | TIL_DEPTH_A8B8G8R8);
+		filePath,
+		TIL_FILE_ABSOLUTEPATH | TIL_DEPTH_A8B8G8R8);
 
 	// Количество фреймов (картинок) в полученной изображении
 	this->numberOfFrames = gif->GetFrameCount();
@@ -41,12 +43,16 @@ bool ImageManager::loadAnimationImage(const char * filePath)
 		this->images.push_back(new sf::Image());
 		this->images[i]->create(width, height, pixels);
 	}
-	// Преобразование полученных фреймов в Текстуры
+
+	// ** Преобразование полученных фреймов в Текстуры
 	for (UINT32 i = 0; i < images.size(); i++)
 	{
 		this->textures.push_back(new sf::Texture());
-		this->textures[i]->loadFromImage(*this->images[i]);
+		this->textures[this->textures.size()-1]->loadFromImage(*this->images[i]);
 	}
+
+	// Количество фреймов (картинок) по количеству элементов в массиве текстур
+	this->numberOfFrames = this->textures.size();
 
 	til::TIL_ShutDown();
 	
@@ -136,6 +142,16 @@ sf::Texture & ImageManager::getTextureByCurFrame()
 void ImageManager::swapTextures(int texN1, int texN2)
 {
 	std::swap(this->textures[texN1], this->textures[texN2]);
+}
+
+void ImageManager::eraseTexture(int texN)
+{
+	if (texN > 0 && texN < this->textures.size())
+	{
+		this->textures.erase(this->textures.begin() + texN);
+	}
+
+	this->numberOfFrames = this->textures.size();
 }
 
 bool ImageManager::freeImages()

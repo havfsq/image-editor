@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\..\..\libs\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="filebrowser\filebrowser.cpp" />
     <ClCompile Include="filedialog\FileDialog.cpp" />
     <ClCompile Include="ImageEditor.cpp" />
     <ClCompile Include="ImageManager.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\libs\imgui\imgui_internal.h" />
+    <ClInclude Include="filebrowser\filebrowser.h" />
     <ClInclude Include="filedialog\FileDialog.h" />
     <ClInclude Include="gifproc\gif.h" />
     <ClInclude Include="ImageEditor.h" />

@@ -480,7 +480,7 @@ bool fileIOWindow(
 	//SetNextWindowSize(size);
 	Begin("FileIO");
 
-	Text("Directory: "); SameLine();
+	Text(u8"Путь: "); SameLine();
 	PushItemWidth(GetWindowWidth() - 145);
 
 	strcpy(c_current_folder, current_folder.c_str());
@@ -539,7 +539,7 @@ bool fileIOWindow(
 			SameLine();
 	}
 
-	if (CollapsingHeader("Browse Directories"))
+	ImGui::Text(u8"Файлы:");
 	{
 		directory_browsing = true;
 
@@ -595,8 +595,6 @@ bool fileIOWindow(
 			strcpy(current_file, file_list[file_selected]);
 		}
 	}
-	else
-		directory_browsing = false;
 
 	Text(" ");
 

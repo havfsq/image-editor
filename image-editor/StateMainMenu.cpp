@@ -2,6 +2,8 @@
 
 #include "StateEditor.h"
 
+#include "filebrowser/filebrowser.h"
+
 StateMainMenu::StateMainMenu(ImageEditor* imageEditor)
 {
 	this->imageEditor = imageEditor;
@@ -10,6 +12,10 @@ StateMainMenu::StateMainMenu(ImageEditor* imageEditor)
 	this->view.setSize(pos);
 	pos *= 0.5f;
 	this->view.setCenter(pos);
+
+	// Дефолтный путь к картинке
+	browserPath = "C:\\Users\\havfsq\\Desktop\\image-editor\\Debug\\media\\af.gif";
+	strcpy(this->imagePath, browserPath.c_str());
 }
 
 StateMainMenu::~StateMainMenu()
@@ -86,9 +92,17 @@ void StateMainMenu::initGui()
 		this->loadEditor();
 	}
 	ImGui::End();
+
+	// Файловый менеджер
+	static imgui_ext::file_browser_modal fileBrowser(u8"Загрузка изображения");
+	bool isImportClicked = true;
+	if (fileBrowser.render(isImportClicked, browserPath))
+	{
+		strcpy(this->imagePath, browserPath.c_str());
+	}
 }
 
 void StateMainMenu::loadEditor()
 {
-	this->imageEditor->pushState(new StateEditor(this->imageEditor));
+	this->imageEditor->pushState(new StateEditor(this->imageEditor, browserPath.c_str()));
 }

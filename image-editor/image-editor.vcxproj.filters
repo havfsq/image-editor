@@ -22,6 +22,9 @@
     <Filter Include="gifproc">
       <UniqueIdentifier>{1a7100f5-6f82-45f3-9576-5f231cd2ad70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="filebrowser">
+      <UniqueIdentifier>{34fa3918-bc07-4e2e-a41b-f19839e64c1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="filedialog\FileDialog.cpp">
       <Filter>filedialog</Filter>
     </ClCompile>
+    <ClCompile Include="filebrowser\filebrowser.cpp">
+      <Filter>filebrowser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageEditor.h">
@@ -82,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="gifproc\gif.h">
       <Filter>gifproc</Filter>
+    </ClInclude>
+    <ClInclude Include="filebrowser\filebrowser.h">
+      <Filter>filebrowser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

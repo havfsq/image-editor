@@ -39,6 +39,8 @@ public:
 
 	// Своп текустур texN1 texN2 в Массиве текстур
 	void swapTextures(int texN1, int texN2);
+	// Удаление текстуры по ее номеру texN
+	void eraseTexture(int texN);
 
 private:
 	// Массив картинок из файла
