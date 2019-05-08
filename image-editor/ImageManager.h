@@ -19,7 +19,6 @@ public:
 
 	bool saveAnitaionToFile(const char* filePath, int delay);
 
-	// ПЕРЕНЕСТИ
 	// Количество фреймов (картинок) в Полученном Изображении
 	UINT32 numberOfFrames;
 	// Задержка перед Обновлением Анимации
@@ -41,12 +40,21 @@ public:
 	void swapTextures(int texN1, int texN2);
 	// Удаление текстуры по ее номеру texN
 	void eraseTexture(int texN);
+	// Создает пустое изображение, заполненное переданным цветом цветом
+	void createTexture(); // <---- TO DO 
+
+	/** ЭФФЕКТЫ НА ИЗОБРАЖЕНИЕ **/
+	
 
 private:
 	// Массив картинок из файла
 	std::vector <sf::Image*> images;
 	// Массив текстур из массива картинок
 	std::vector <sf::Texture*> textures;
+
+	// Размеры самого маленького полученного изображения
+	unsigned int minWidth;
+	unsigned int minHeight;
 
 	// Освобожнеие памяти массива картинок
 	bool freeImages();

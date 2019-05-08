@@ -217,7 +217,8 @@ void CherryTheme() {
 	style.Colors[ImGuiCol_Header] = MED(0.76f);
 	style.Colors[ImGuiCol_HeaderHovered] = MED(0.86f);
 	style.Colors[ImGuiCol_HeaderActive] = HI(1.00f);
-	style.Colors[ImGuiCol_Column] = ImVec4(0.14f, 0.16f, 0.19f, 1.00f);
+	//style.Colors[ImGuiCol_Column] = ImVec4(0.14f, 0.16f, 0.19f, 1.00f);
+	style.Colors[ImGuiCol_Column] = MED(0.36f);
 	style.Colors[ImGuiCol_ColumnHovered] = MED(0.78f);
 	style.Colors[ImGuiCol_ColumnActive] = MED(1.00f);
 	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.47f, 0.77f, 0.83f, 0.04f);
@@ -368,8 +369,8 @@ void SuperDarkTheme() {
 // Определение стилей GUI
 void ImageEditor::loadStylesheets()
 {
-	//SuperDarkTheme();
-	theme();
+	CherryTheme();
+	//theme();
 	
 	return;
 }

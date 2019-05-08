@@ -5,6 +5,8 @@ ImageManager::ImageManager()
 {
 	//TO DO МЕХАНИЗМ ЗАРУГЗКИ КАРТИНКИ Из МЕНЮ...
 	this->currentFrame = 0;
+	this->minWidth = 100;
+	this->minHeight = 100;
 }
 
 ImageManager::~ImageManager()
@@ -32,6 +34,13 @@ bool ImageManager::loadAnimationImage(const char * filePath)
 	// Ширина и высота изображения
 	UINT32 width = gif->GetPitchX(1);
 	UINT32 height = gif->GetPitchY(1);
+
+	// Сохранение размеров самого маленького полученного изображения
+	if (this->textures.size() == 0)
+	{
+		this->minWidth = width;
+		this->minHeight = height;
+	}
 
 	if (this->numberOfFrames == 0)
 		return false;
@@ -84,7 +93,8 @@ bool ImageManager::saveAnitaionToFile(const char * filePath, int delay)
 		// Указатель на массив пикселей изображения
 		uint8_t* imgPtr = (uint8_t*)image.getPixelsPtr();
 
-		GifWriteFrame(&g, imgPtr, width, height, delay);
+
+		GifWriteFrame(&g, imgPtr, image.getSize().x, image.getSize().y, delay);
 	}
 
 	// Освобожнеие памяти Обработчика Для созданиния Анимации
@@ -135,7 +145,12 @@ sf::Texture & ImageManager::getTextureByNumber(int number)
 
 sf::Texture & ImageManager::getTextureByCurFrame()
 {
-	// Добавить проверку на провильность номера, есил понадобится
+	// Если передан некорректный номер фрейма то
+	if (this->currentFrame >= this->textures.size())
+	{
+		// Устанавливаем текущий фрейм как нулевой (первый)
+		currentFrame = 0;
+	}
 	return *this->textures[this->currentFrame];
 }
 
@@ -146,12 +161,27 @@ void ImageManager::swapTextures(int texN1, int texN2)
 
 void ImageManager::eraseTexture(int texN)
 {
-	if (texN > 0 && texN < this->textures.size())
+	if (texN >= 0 && texN < this->textures.size() && this->textures.size() != 1)
 	{
 		this->textures.erase(this->textures.begin() + texN);
 	}
 
 	this->numberOfFrames = this->textures.size();
+}
+
+void ImageManager::createTexture()
+{
+	// Создание изображение
+	sf::Image image;
+	image.create(this->minWidth, this->minHeight, sf::Color());
+
+	// Преобрахование изображения в текстуру и запись ее в массив текстур
+	this->textures.push_back(new sf::Texture());
+	this->textures[this->textures.size() - 1]->loadFromImage(image);
+
+	this->numberOfFrames = this->textures.size();
+
+	image.~Image();
 }
 
 bool ImageManager::freeImages()
